@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style></style>
+  </head>
+  <body>
+
+    <h2 class="logo">Uso Modal</h2>
+
+    <p class="descricao">Como configurar e estilizar uma Modal no Site</p>
+
+    <img src="https://statig1.akamaized.net/bancodeimagens/bh/xo/ju/bhxojuduyxhuvw0l6tae3i0r2.jpg" alt="">
+  <style>
+
+    /* Geralmente utilizamos o atributo id das tags html, para 
+    manipular com JAVASCRIPT, e utilizamos o atributo class para
+    estilizar com CSS*/
+
+    .modal-container {
+    /* 100% de altura de largura da tela */
+    width: 100vw; /* Tem que escrever desse jeito se nao, não funciona */
+    height: 100vh; /* Tem que escrever desse jeito se não, não funciona */
+
+    /* Cor de fundo da modal-container */
+    background: rgba(0,0,0,.5); /* o último é o valor de alfa - transparência*/
+
+    /* Ficar por cima do site inteiro */
+    position: fixed;
+
+    /* Para ele aparecer temos que definir a posição de top dele */
+    top: 0px;
+    left: 0px;
+
+    /* Definir que ele fique sempre por cima de todos os itens, porqu
+    se tiver algum outro item que tiver um posicionamento relativo no 
+    site ou um posicionamento absoluto com um z-index um pouco maior que 
+    o configurado nesse modal esse elemento fica acima do meu modal */
+    z-index: 2000;    
+    
+    /* macete para centrar o conteúdo da modal */
+    display: none; /* Esse é o modal pai */
+
+    /* O alinhamento na horizontal */
+    justify-content: center;
+
+    /* O alinhamento na vertical */
+    align-items: center;
+    }
+
+    .modal {
+      /* Cor de Fundo do modal */
+      background: white;
+      /* Tamanho máximo que ele irá ocupar na tela */
+      width: 60%;
+      /* Para ele diminuir de tamanho ate 300px de tela */
+      min-width: 300px;
+      /**/
+      padding: 8px;
+      /**/
+      border: 10px solid #999999;
+      /* Agora como criar Borda com borda ? */
+      /* O box-shadow utilizado para criar um sombra no site */
+      /* voce pode fazer com que ele tenha uma aparecencia de */
+      /* borda, so não posiciona-lo nem pra cima e nem pra baixo */
+      /* deixando 0 0, não dar blur nenhum deixando 0, depois */
+      /* colocar 10px, que é aumentar a sombra em 10px */
+      /* agora colocar a cor, no caso usei o White */
+      /* tecnica para não ter que criar várias divs */
+      box-shadow: 0 0 0 10px white; 
+      /* Para fazer o posicionamento dos elementos filhos 
+      ficarem em relação a sua posição e não em relaçao
+      a página toda */
+      position: relative;
+    }
+
+    .fechar {
+      /* Posicionando ele no canto superior direito */
+      position: absolute;
+      /**/
+      top: -30px;
+      /**/
+      right: -30px;
+      /**/
+      width: 50px;
+      /**/
+      height: 50px;
+      /**/
+      border-radius: 50%;
+      /**/
+      border: 4px solid white;
+      /**/
+      background: #999999;
+      /**/
+      color: white;
+      /**/
+      font-family: monospace;
+      /**/
+      font-size: 1.2em;
+      /**/
+      cursor: pointer;
+      /**/
+      box-shadow: 0 4px 4px 0 rgba(0,0,0,.3);
+    }
+    /* As classes separadas significa que estamos pegando uma classe
+    de nome .modal-container e dentro dela uma outra classe com nome
+    .mostrar 
+    O que quero é adicionar o .mostrar a classe .modal-container por
+    isso eles devem ficar juntos */
+    .modal-container.mostrar {
+      /**/
+      display: flex;
+      /**/
+    }
+    /* Fazer uma animação para aparecer o modal */
+    /*utilizar o keyframes*/
+    @keyframes modal {
+      from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .mostrar .modal {
+      animation: modal .3s;
+    }
+
+
+  </style>
+
+    <div id="modal-promocao" class="modal-container">
+        <div class="modal">
+          <button class="fechar">X</button>
+          <h3>Cadastre-se na NewsLetter</h3>
+          <form>
+            <input type="text" placeholder="Email">
+            <input type="button" value="Cadastrar">
+          </form>
+        </div>
+    </div>
+
+    <script>
+
+      function iniciaModal(modalId) {
+        if(localStorage.fechaModal !== modalId) {
+          const modal = document.getElementById(modalId)
+          if(modal) {
+            modal.classList.add('mostrar')
+            modal.addEventListener('click', (e) => {
+              if(e.target.id == modalId || e.target.className == 'fechar'){
+                modal.classList.remove('mostrar')
+                localStorage.fechaModal = modalId
+              }
+            })
+          }
+        }
+      }
+      
+      const logo = document.querySelector('.descricao')
+      logo.addEventListener('click', () => iniciaModal('modal-promocao'))
+   
+      document.addEventListener('scroll', () => {
+        if(window.pageYOffset > 200) {
+          iniciaModal('modal-promocao')
+        }
+      })
+
+    </script>
+
+  </body>
+</html>
