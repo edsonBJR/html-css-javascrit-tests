@@ -5,17 +5,19 @@ const estados = [
     { nome: "Rio Grande do Sul", cidade: "Porto Alegre" }
 ]
 
-// const cidadeBusca = 'São Paulo'
+// Metodo não simplificado
+const cidadeBusca = 'São Paulo'
 
-// function buscaEstado(cidade) {
-//     for (let estado of estados) {
-//         if (estado.cidade == cidadeBusca) {
-//             return console.log(`${estado.nome} e sua capital ${estado.cidade}`)
-//         }
-//     }
-// }
-// console.log(buscaEstado(estados))
+function buscaEstado(cidade) {
+    for (let estado of estados) {
+        if (estado.cidade == cidadeBusca) {
+            return console.log(`${estado.nome} e sua capital ${estado.cidade}`)
+        }
+    }
+}
+console.log(buscaEstado(estados))
 
+// Metodo simplificado
 let checkNomeCidade = (item) => {
     return item.cidade == 'Curitiba'
 }
@@ -23,9 +25,3 @@ let checkNomeCidade = (item) => {
 const Cidades =
     estados.filter(checkNomeCidade)
 console.log(Cidades)
-
-
-
-// for (let estado of estados) {
-//     console.log(`${estado.nome} com sua cidade ${estado.cidade}`)
-// }
